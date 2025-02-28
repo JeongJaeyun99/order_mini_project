@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userSlice } from '../slice/userSlice';
+import { userSlice } from '../../slice/userSlice';
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import { ClientSideRowModelModule, 
     PaginationModule, 
@@ -8,6 +8,8 @@ import { ClientSideRowModelModule,
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import styled from 'styled-components';
+import './UserList.css';
 
 const UserList = () => {
     const dispatch = useDispatch();
@@ -48,7 +50,9 @@ const UserList = () => {
                     columnDefs={columnDefs}
                     pagination={true}  // 페이지네이션 추가
                     paginationPageSize={10} // 한 페이지당 10개 표시
-                    domLayout="autoHeight" // 높이 자동 조정
+                    domLayout="autoHeight"
+                    rowHeight={40}
+                    headerHeight={50} // 높이 자동 조정
                     modules={[
                         ClientSideRowModelModule, 
                         PaginationModule, 
@@ -56,39 +60,13 @@ const UserList = () => {
                     ]}
                 />
             </div>
-        {/* {userData ?
-                
-            (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Age</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userData.map((user)=>
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.age}</td>
-                            </tr>
-                        )}
-                        
-                    </tbody>
-                </table>
-            )
-         : (
-            <div>정보가 표시될 자리</div>
-         )} */}
-            <button><Link to='/userCreate'>회원가입하러 가기</Link></button>
-            <button><Link to='/userDelete'>회원탈퇴하러 가기</Link></button>
-            <button><Link to='/userFindById'>회원id로 회원정보 찾으러 가기</Link></button>
-            <button><Link to='/userFindByName'>회원이름으로 회원정보 찾으러 가기</Link></button>
-            <button><Link to='/userFindGteAge'>특정 나이 이상의 회원 정보 찾으러 가기</Link></button>
+            <div className='button-wrapper'>
+            <button className="styled-button"><Link to='/userCreate'>회원가입하러 가기</Link></button>
+            <button className="styled-button"><Link to='/userDelete'>회원탈퇴하러 가기</Link></button>
+            <button className="styled-button"><Link to='/userFindById'>회원id로 회원정보 찾으러 가기</Link></button>
+            <button className="styled-button"><Link to='/userFindByName'>회원이름으로 회원정보 찾으러 가기</Link></button>
+            <button className="styled-button"><Link to='/userFindGteAge'>특정 나이 이상의 회원 정보 찾으러 가기</Link></button>
+            </div>
         </>
     )
 }

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { bookSlice } from '../slice/bookSlice';
+import { bookSlice } from '../../slice/bookSlice';
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";

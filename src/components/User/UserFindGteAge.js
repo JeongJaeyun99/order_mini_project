@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userFindGteAgeSlice } from '../slice/userSlice';
+import { userFindGteAgeSlice } from '../../slice/userSlice';
 import {Link} from "react-router-dom";
 
 const UserFindByName = () => {

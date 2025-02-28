@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
 import { useDispatch } from 'react-redux';
-import {userCreateSlice} from '../slice/userSlice'
+import {userCreateSlice} from '../../slice/userSlice'
+import { useNavigate } from 'react-router-dom';
 
 function UserCreate() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [userCreateData,setUserCreateData] = useState({
         name : "",
@@ -17,6 +19,7 @@ function UserCreate() {
     const handleSubmit = (e) =>{
         e.preventDefault();
         dispatch(userCreateSlice(userCreateData));
+        navigate("/userList/");
     }
 
     

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux';
-import { userDeleteSlice } from '../slice/userSlice';
+import { userDeleteSlice } from '../../slice/userSlice';
 import {Button, Modal,message} from "antd"
 import { useNavigate } from "react-router-dom";
 

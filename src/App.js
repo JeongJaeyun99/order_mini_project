@@ -1,18 +1,18 @@
 import './App.css';
-import UserList from './components/UserList';
+import UserList from './components/User/UserList';
 import Home from './components/Home'
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
-import UserCreate from './components/UserCreate'
-import UserDelete from './components/UserDelete'
-import UserFindById from './components/UserFindById'
-import UserFindByName from './components/UserFindByName'
-import UserFindGteAge from './components/UserFindGteAge'
-import BookList from './components/BookList';
-import BookCreate from './components/BookCreate';
-import BookDelete from './components/BookDelete';
-import BookFindByTitle from './components/BookFindByTitle';
-import BookFindByAuthor from './components/BookFindByAuthor';
-import BookFindByPublisher from './components/BookFindByPublisher';
+import UserCreate from './components/User/UserCreate'
+import UserDelete from './components/User/UserDelete'
+import UserFindById from './components/User/UserFindById'
+import UserFindByName from './components/User/UserFindByName'
+import UserFindGteAge from './components/User/UserFindGteAge'
+import BookList from './components/Book/BookList';
+import BookCreate from './components/Book/BookCreate';
+import BookDelete from './components/Book/BookDelete';
+import BookFindByTitle from './components/Book/BookFindByTitle';
+import BookFindByAuthor from './components/Book/BookFindByAuthor';
+import BookFindByPublisher from './components/Book/BookFindByPublisher';
 
 function App() {
   return (

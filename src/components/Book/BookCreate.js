@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
 import { useDispatch } from 'react-redux';
-import {bookCreateSlice} from '../slice/bookSlice'
+import {bookCreateSlice} from '../../slice/bookSlice'
+import { useNavigate } from 'react-router-dom';
 
 function BookCreate() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [bookCreateData,setBookCreateData] = useState({
         title : "",
@@ -18,6 +20,7 @@ function BookCreate() {
     const handleSubmit = (e) =>{
         e.preventDefault();
         dispatch(bookCreateSlice(bookCreateData));
+        navigate("/bookList/")
     }
 
     
