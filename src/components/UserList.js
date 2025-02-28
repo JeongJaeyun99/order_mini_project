@@ -17,6 +17,7 @@ const UserList = () => {
         setUserData(users); // users가 변경될 때마다 userData 업데이트 / users가 변경될때 마다 이 useEffect 구문을 실행
     }, [users]); // users 데이터가 업데이트 되면 실행
 
+
     if(loading){ 
         return <div>loading...</div>
     }
@@ -25,28 +26,41 @@ const UserList = () => {
     }
 
     return (
-        <table>
-            {userData?.map((user)=>
-                (
-                    <tr>
-                        <td>
-                            ID : {user.id}
-                        </td>
-                        <td>
-                            Name : {user.name}
-                        </td>
-                        <td>
-                            Email : {user.email}
-                        </td>
-                        <td>
-                            Age : {user.age}
-                        </td>
-                    </tr>
-                )
-            )}
+        <>
+        {userData ?
+                
+            (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userData.map((user)=>
+                            <tr key={user.id}>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>{user.age}</td>
+                            </tr>
+                        )}
+                        
+                    </tbody>
+                </table>
+            )
+         : (
+            <div>정보가 표시될 자리</div>
+         )}
             <button><Link to='/userCreate'>회원가입하러 가기</Link></button>
             <button><Link to='/userDelete'>회원탈퇴하러 가기</Link></button>
-        </table>
+            <button><Link to='/userFindById'>회원id로 회원정보 찾으러 가기</Link></button>
+            <button><Link to='/userFindByName'>회원이름으로 회원정보 찾으러 가기</Link></button>
+            <button><Link to='/userFindGteAge'>특정 나이 이상의 회원 정보 찾으러 가기</Link></button>
+        </>
     )
 }
 

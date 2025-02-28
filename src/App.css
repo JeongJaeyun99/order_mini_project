@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+  body {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center;     /* 세로 중앙 정렬 */
+    flex-direction: column;  /* 세로로 배치 */
+    height: 100vh;           /* 화면 전체 높이 사용 */
+    margin: 0;               /* 기본 여백 제거 */
+  }
+
+  nav {
+    margin-bottom: 20px;     /* 네비게이션과 테이블 간 간격 */
+    text-align: center;      /* 네비게이션 텍스트 중앙 정렬 */
+  }
+
+  table {
+    border-collapse: collapse; /* 테이블 테두리 겹치지 않도록 설정 */
+    text-align: center;        /* 테이블 내용 중앙 정렬 */
+  }
+
+  th, td {
+    border: 1px solid black;  /* 테이블에 테두리 추가 */
+    padding: 10px;             /* 패딩 추가 */
+  }

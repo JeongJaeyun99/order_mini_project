@@ -1,19 +1,40 @@
 import React, { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux';
 import { userDeleteSlice } from '../slice/userSlice';
+import {Button, Modal,message} from "antd"
+import { useNavigate } from "react-router-dom";
 
 function UserDelete() {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     //const {userDelete,loading,error} = useSelector((state)=>state.userDelete)
-    const [id,SetId] = useState("")
+    const [id,setId] = useState("")
     const handleChange =(e)=>{
-        SetId(e.target.value)
+        setId(e.target.value)
     }
 
     const handleSubmit =(e)=>{
-        e.preventDefault(); 
-        dispatch(userDeleteSlice(id))
+        e.preventDefault();
+
+        Modal.confirm({
+          title: "정말 삭제하시겠습니까?",
+          content : `ID ${id}을(를) 삭제합니다.`,
+          okText : "삭제",
+          calcelText : "취소",
+          okType : "danger",
+          onOk : () =>{
+            return new Promise((resolve)=>{
+              setTimeout(()=>{
+                dispatch(userDeleteSlice(id))
+                message.success("삭제가 완료되었습니다.");
+                navigate("/userList/")
+                resolve();
+              },1000)
+            })
+          }
+        })
     }
+
   return (
     <div>
       <h3>회원 탈퇴 하기</h3>
@@ -29,7 +50,7 @@ function UserDelete() {
                 required
             />
             </label>
-            <button type="submit">제출</button>
+            <button type="submit" danger>제출</button>
             </form>
     </div>
   )
