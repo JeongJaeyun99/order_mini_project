@@ -5,6 +5,11 @@ import userDelete from "../services/userDeleteService"
 import userFindById from "../services/userFindByIdService"
 import userFindByName from "../services/userFindByNameService"
 import userFindGteAge from "../services/userFindGteAgeService"
+import bookList from "../services/bookService"
+import bookDelete from "../services/bookDeleteService"
+import bookFindByTitle from "../services/bookFindByTitleService"
+import bookFindByAuthor from "../services/bookFindByAuthorService"
+import bookFindByPublisher from "../services/bookFindByPublisherService"
 
 const reducer = configureStore({
   reducer: {
@@ -12,7 +17,13 @@ const reducer = configureStore({
     userDelete,
     userFindById,
     userFindByName,
-    userFindGteAge, // 유저 전체 받아오기
+    userFindGteAge,
+    bookList,
+    bookDelete,
+    bookFindByTitle,
+    bookFindByAuthor,
+    bookFindByPublisher,
+     // 유저 전체 받아오기
   },
 });
 
