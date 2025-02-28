@@ -3,6 +3,7 @@ import UserList from './components/UserList';
 import Home from './components/Home'
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import UserCreate from './components/UserCreate'
+import UserDelete from './components/UserDelete'
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/userList" element={<UserList />} />
-        <Route path="/userCreate" element={<UserCreate />} />        
+        <Route path="/userCreate" element={<UserCreate />} />
+        <Route path="/userDelete" element={<UserDelete />} />        
       </Routes>
     </Router>
   );

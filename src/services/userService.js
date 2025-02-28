@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userSlice } from '../slices/userSlice' // 바꾸는곳
+import { userSlice } from '../slice/userSlice' // 바꾸는곳
 
 // 데이터를 변수에 넣는곳(변수설정)
 const userService = createSlice({// 바꾸는곳

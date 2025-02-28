@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { useDispatch } from 'react-redux';
-import userCreateSlice from '../slices/userCreateSlice'
+import {userCreateSlice} from '../slice/userSlice'
 
 function UserCreate() {
     const dispatch = useDispatch();

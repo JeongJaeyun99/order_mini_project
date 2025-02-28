@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userSlice } from '../slices/userSlice';
+import { userSlice } from '../slice/userSlice';
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
-import UserCreate from './UserCreate'
 
 const UserList = () => {
     const dispatch = useDispatch();
@@ -46,6 +45,7 @@ const UserList = () => {
                 )
             )}
             <button><Link to='/userCreate'>회원가입하러 가기</Link></button>
+            <button><Link to='/userDelete'>회원탈퇴하러 가기</Link></button>
         </table>
     )
 }
