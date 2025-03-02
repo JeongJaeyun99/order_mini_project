@@ -8,14 +8,35 @@ import { ClientSideRowModelModule,
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import styled from 'styled-components';
 import './UserList.css';
+import {Modal} from 'antd'; // 모달 컴포넌트
+import UserCreate from './UserCreate';
 
 const UserList = () => {
     const dispatch = useDispatch();
     // const [userData,setUserData] = useState([]);
     const [rowData, setRowData] = useState([]);
+
     const {users,loading,error} = useSelector((state) => state.userList);
+
+    const [isModalOpen,setIsModalOpen] = useState(false);
+    const [modalType,setModalType] = useState("");
+    
+    const openModal = (type) => {
+        // console.log("모달 열기:", type); 
+        setModalType(type);
+        setIsModalOpen(true);
+    }
+
+    const closeModal = () => {
+        // console.log("모달 닫기"); 
+        setIsModalOpen(false);
+        setModalType("");
+    }
+
+    useEffect(() => {
+        //console.log("isModalOpen 상태 변경:", isModalOpen);
+    }, [isModalOpen]);
 
     useEffect(() => {
         dispatch(userSlice()); // 데이터를 불러오는 액션 실행 / dispatch가 변경될때 마다 이 useEffect 구문을 실행
@@ -44,12 +65,25 @@ const UserList = () => {
     return (
         <>
         <h3> User List </h3>
+        <button className="styled-button" onClick={()=> openModal("userCreate")}>회원가입하러 가기</button>
+            <Modal
+                title="회원가입"
+                visible={isModalOpen}
+                onCancel={closeModal}
+                footer={null}
+                width={600}
+            >
+                {modalType === "userCreate" && <UserCreate onClose={closeModal}/>}
+            </Modal>
+
             <div className="ag-theme-alpine" style={{ height: 400, width: "100%" }}>
                 <AgGridReact
+                    theme="legacy"
                     rowData={rowData}
                     columnDefs={columnDefs}
                     pagination={true}  // 페이지네이션 추가
                     paginationPageSize={10} // 한 페이지당 10개 표시
+                    paginationPageSizeSelector={[10, 20, 50, 100]}
                     domLayout="autoHeight"
                     rowHeight={40}
                     headerHeight={50} // 높이 자동 조정
@@ -61,11 +95,11 @@ const UserList = () => {
                 />
             </div>
             <div className='button-wrapper'>
-            <button className="styled-button"><Link to='/userCreate'>회원가입하러 가기</Link></button>
-            <button className="styled-button"><Link to='/userDelete'>회원탈퇴하러 가기</Link></button>
-            <button className="styled-button"><Link to='/userFindById'>회원id로 회원정보 찾으러 가기</Link></button>
-            <button className="styled-button"><Link to='/userFindByName'>회원이름으로 회원정보 찾으러 가기</Link></button>
-            <button className="styled-button"><Link to='/userFindGteAge'>특정 나이 이상의 회원 정보 찾으러 가기</Link></button>
+                <button className="styled-button" onClick={openModal}><Link to='/userDelete'>회원탈퇴하러 가기</Link></button>
+                {/* <Modal isOpen={isModalOpen} onClose={closeModal}></Modal> */}
+                <button className="styled-button"><Link to='/userFindById'>회원id로 회원정보 찾으러 가기</Link></button>
+                <button className="styled-button"><Link to='/userFindByName'>회원이름으로 회원정보 찾으러 가기</Link></button>
+                <button className="styled-button"><Link to='/userFindGteAge'>특정 나이 이상의 회원 정보 찾으러 가기</Link></button>
             </div>
         </>
     )
