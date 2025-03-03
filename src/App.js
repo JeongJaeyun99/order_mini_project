@@ -13,12 +13,17 @@ import BookDelete from './components/Book/BookDelete';
 import BookFindByTitle from './components/Book/BookFindByTitle';
 import BookFindByAuthor from './components/Book/BookFindByAuthor';
 import BookFindByPublisher from './components/Book/BookFindByPublisher';
+import './Nav.css'
 
 function App() {
   return (
       <>
-        <nav>
-          <Link to="/">Home</Link> | <Link to="/userList">User</Link> | <Link to="/bookList">Book</Link>
+        <nav className="nav">
+          <Link to="/" className="link">Home</Link>
+          <span className="separator">|</span>
+          <Link to="/userList" className="link">User</Link>
+          <span className="separator">|</span>
+          <Link to="/bookList" className="link">Book</Link>
         </nav>
         <Routes>
           {/* User */}

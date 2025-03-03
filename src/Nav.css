@@ -1,0 +1,27 @@
+/* Nav.css */
+.nav {
+    background-color: #4e6074;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+  
+  .link {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 15px;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  
+  .link:hover {
+    color: #61dafb;
+  }
+  
+  .separator {
+    color: #fff;
+    font-size: 20px;
+  }
+  

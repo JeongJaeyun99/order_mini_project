@@ -3,8 +3,9 @@ import { useDispatch,useSelector } from 'react-redux';
 import { userDeleteSlice } from '../../slice/userSlice';
 import {Button, Modal,message} from "antd"
 import { useNavigate } from "react-router-dom";
+import "./UserListModal.css"
 
-function UserDelete() {
+function UserDelete({onClose}) {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     //const {userDelete,loading,error} = useSelector((state)=>state.userDelete)
@@ -37,9 +38,9 @@ function UserDelete() {
 
   return (
     <div>
-      <h3>회원 탈퇴 하기</h3>
+      <h3 className="modal-title">회원 탈퇴 하기</h3>
             <form onSubmit={handleSubmit}> 
-            <label>
+            <label className="modal-label">
                 ID : 
             <input
                 type="number"
@@ -48,9 +49,13 @@ function UserDelete() {
                 onChange={handleChange}
                 placeholder="ID를 입력하세요" 
                 required
+                className="modal-input"
             />
             </label>
-            <button type="submit" danger>제출</button>
+                    <div className="modal-footer">
+                        <button type="submit" className="modal-btn">제출</button>
+                        <button type="button" onClick={onClose} className="modal-btn">닫기</button>
+                    </div>
             </form>
     </div>
   )
