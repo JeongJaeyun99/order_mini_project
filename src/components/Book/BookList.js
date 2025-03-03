@@ -11,6 +11,9 @@ import { ClientSideRowModelModule,
 import {Modal} from 'antd'; // 모달 컴포넌트
 import BookCreate from './BookCreate'
 import BookDelete from './BookDelete'
+import BookFindByTitle from './BookFindByTitle'
+import BookFindByAuthor from './BookFindByAuthor'
+import BookFindByPublisher from './BookFindByPublisher'
 
 const BookList = () => {
     const dispatch = useDispatch();
@@ -101,9 +104,36 @@ const BookList = () => {
                 >
                     <BookDelete onClose={() => closeModal("bookDelete")}/>
                 </Modal>
-                <button className="styled-button"><Link to='/bookFindByTitle'>책 제목으로 책 정보 찾으러 가기</Link></button>
-                <button className="styled-button"><Link to='/bookFindByAuthor'>작가로 책 정보 찾으러 가기</Link></button>
-                <button className="styled-button"><Link to='/bookFindByPublisher'>출판사로 회원 정보 찾으러 가기</Link></button>
+                <button className="styled-button" onClick={()=> openModal("bookFindByTitle")}>책 제목으로 책 정보 찾으러 가기</button>
+                <Modal
+                    title=""
+                    visible={modalState.bookFindByTitle}
+                    onCancel={() => closeModal("bookFindByTitle")}
+                    footer={null}
+                    width={600}
+                >
+                    <BookFindByTitle onClose={() => closeModal("bookFindByTitle")}/>
+                </Modal>
+                <button className="styled-button" onClick={()=> openModal("bookFindByAuthor")}>작가로 책 정보 찾으러 가기</button>
+                <Modal
+                    title=""
+                    visible={modalState.bookFindByAuthor}
+                    onCancel={() => closeModal("bookFindByAuthor")}
+                    footer={null}
+                    width={600}
+                >
+                    <BookFindByAuthor onClose={() => closeModal("bookFindByAuthor")}/>
+                </Modal>
+                <button className="styled-button" onClick={()=> openModal("bookFindByPublisher")}>출판사로 회원 정보 찾으러 가기</button>
+                <Modal
+                    title=""
+                    visible={modalState.bookFindByPublisher}
+                    onCancel={() => closeModal("bookFindByPublisher")}
+                    footer={null}
+                    width={600}
+                >
+                    <BookFindByPublisher onClose={() => closeModal("bookFindByPublisher")}/>
+                </Modal>
             </div>
         </>
     )

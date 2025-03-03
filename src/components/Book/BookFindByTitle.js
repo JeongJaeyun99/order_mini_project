@@ -2,12 +2,20 @@ import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bookFindByTitleSlice } from '../../slice/bookSlice';
 import {Link} from "react-router-dom";
+import "./BookListModal.css"
+import { ClientSideRowModelModule, 
+    PaginationModule, 
+    ValidationModule  } from "ag-grid-community";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
-const BookFindByTitle = () => {
+const BookFindByTitle = ({onClose}) => {
     const dispatch = useDispatch();
     const [bookData,setBookData] = useState(null);
     const [bookTitle,setBookTitle] = useState("");
     const {bookFindByTitle,loading,error} = useSelector((state) => state.bookFindByTitle);
+    const [rowData, setRowData] = useState([]);
 
     const handleChange =(e)=>{
         setBookTitle(e.target.value)
@@ -22,9 +30,19 @@ const BookFindByTitle = () => {
     useEffect(() =>{
         if(bookFindByTitle){
             setBookData(bookFindByTitle);
+            if (bookFindByTitle !== rowData) {
+                setRowData(bookFindByTitle || []);
+            }
         }
     }, [bookFindByTitle])
 
+    const columnDefs = [
+        {headerName : "ID", field : "id", flex : 1},
+        {headerName : "Title", field : "title", flex : 1},
+        {headerName : "Author", field : "author", flex : 1},
+        {headerName : "Publisher", field : "publisher", flex : 1},
+        {headerName : "Price", field : "price", flex : 1},
+    ];
     
     if(loading){ 
         return <div>loading...</div>
@@ -35,9 +53,9 @@ const BookFindByTitle = () => {
 
     return (
         <>  
-            <h3>책 제목으로 정보 찾기</h3>
+            <h3 className="modal-title">책 제목으로 정보 찾기</h3>
                 <form onSubmit={handleSubmit}> 
-                    <label>
+                    <label className="modal-label">
                         Title : 
                     <input
                         type="text"
@@ -46,39 +64,36 @@ const BookFindByTitle = () => {
                         onChange={handleChange}
                         placeholder="이름을 입력하세요" 
                         required
+                        className="modal-input"
                     />
                     </label>
-                    <button type="submit">찾기</button>
+                    <div className="modal-footer">
+                        <button type="submit" className="modal-btn">제출</button>
+                        <button type="button" onClick={onClose} className="modal-btn">닫기</button>
+                    </div>
                 </form>
-                {bookData ?
-                
-                (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Publisher</th>
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {bookData.map((book)=>
-                                <tr key={book.id}>
-                                    <td>{book.title}</td>
-                                    <td>{book.author}</td>
-                                    <td>{book.publisher}</td>
-                                    <td>{book.price}</td>
-                                </tr>
-                            )}
-                            
-                        </tbody>
-                    </table>
-                )
-             : (
+                {bookData ? (
+                    <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+                        <AgGridReact
+                            columnDefs={columnDefs}
+                            rowData={rowData}
+                            pagination={true}
+                            paginationPageSize={10}
+                            paginationPageSizeSelector={[10, 20, 50, 100]}
+                            domLayout="autoHeight"
+                            rowHeight={40}
+                            headerHeight={50}
+                            modules={[
+                                ClientSideRowModelModule, 
+                                PaginationModule, 
+                                ValidationModule // 🔥 오류 메시지 확인용
+                            ]}
+                            theme="legacy"
+                        />
+                    </div>
+            ) : (
                 <div>정보가 표시될 자리</div>
-             )}
-                <button><Link to='/bookList'>뒤로 가기</Link></button>
+            )} 
         </>
     )
 }
