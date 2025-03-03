@@ -10,6 +10,8 @@ import bookDelete from "../services/bookDeleteService"
 import bookFindByTitle from "../services/bookFindByTitleService"
 import bookFindByAuthor from "../services/bookFindByAuthorService"
 import bookFindByPublisher from "../services/bookFindByPublisherService"
+import orderList from "../services/orderService"
+import orderDelete from "../services/orderDeleteService"
 
 const reducer = configureStore({
   reducer: {
@@ -23,6 +25,8 @@ const reducer = configureStore({
     bookFindByTitle,
     bookFindByAuthor,
     bookFindByPublisher,
+    orderList,
+    orderDelete
      // 유저 전체 받아오기
   },
 });

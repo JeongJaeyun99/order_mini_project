@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bookSlice } from '../../slice/bookSlice';
-import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
@@ -17,7 +16,6 @@ import BookFindByPublisher from './BookFindByPublisher'
 
 const BookList = () => {
     const dispatch = useDispatch();
-    //const [bookData,setBookData] = useState([]);
     const [rowData, setRowData] = useState([]);
     const {books,loading,error} = useSelector((state) => state.bookList);
 
