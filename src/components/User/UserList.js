@@ -12,6 +12,9 @@ import './UserList.css';
 import {Modal} from 'antd'; // 모달 컴포넌트
 import UserCreate from './UserCreate';
 import UserDelete from './UserDelete';
+import UserFindById from './UserFindById';
+import UserFindByName from './UserFindByName';
+import UserFindGteAge from './UserFindGteAge'
 
 const UserList = () => {
     const dispatch = useDispatch();
@@ -88,7 +91,7 @@ const UserList = () => {
                     rowData={rowData}
                     columnDefs={columnDefs}
                     pagination={true}  // 페이지네이션 추가
-                    paginationPageSize={10} // 한 페이지당 10개 표시
+                    paginationPageSize={8} // 한 페이지당 10개 표시
                     paginationPageSizeSelector={[10, 20, 50, 100]}
                     domLayout="autoHeight"
                     rowHeight={40}
@@ -100,7 +103,7 @@ const UserList = () => {
                     ]}
                 />
             </div>
-            <div className='button-wrapper'>
+            <div className='button-wrapper' style={ {marginTop: '60px'}}>
                 <button className="styled-button" onClick={() =>openModal("userDelete")}>회원탈퇴하러 가기</button>
                 <Modal
                     title=""
@@ -111,9 +114,36 @@ const UserList = () => {
                 >
                     <UserDelete onClose={() => closeModal("userDelete")}/>
                 </Modal>
-                <button className="styled-button"><Link to='/userFindById'>회원id로 회원정보 찾으러 가기</Link></button>
-                <button className="styled-button"><Link to='/userFindByName'>회원이름으로 회원정보 찾으러 가기</Link></button>
-                <button className="styled-button"><Link to='/userFindGteAge'>특정 나이 이상의 회원 정보 찾으러 가기</Link></button>
+                <button className="styled-button" onClick={() =>openModal("userFindById")}>회원id로 회원정보 찾으러 가기</button>
+                <Modal
+                    title=""
+                    visible={modalState.userFindById}
+                    onCancel={() => closeModal("userFindById")}
+                    footer={null}
+                    width={600}
+                >
+                    <UserFindById onClose={() => closeModal("userFindById")}/>
+                </Modal>
+                <button className="styled-button" onClick={() =>openModal("userFindByName")}>회원이름으로 회원정보 찾으러 가기</button>
+                <Modal
+                    title=""
+                    visible={modalState.userFindByName}
+                    onCancel={() => closeModal("userFindByName")}
+                    footer={null}
+                    width={600}
+                >
+                    <UserFindByName onClose={() => closeModal("userFindByName")}/>
+                </Modal>
+                <button className="styled-button" onClick={() =>openModal("userFindGteAge")}>특정 나이 이상의 회원 정보 찾으러 가기</button>
+                <Modal
+                    title=""
+                    visible={modalState.userFindByName}
+                    onCancel={() => closeModal("userFindGteAge")}
+                    footer={null}
+                    width={600}
+                >
+                    <UserFindGteAge onClose={() => closeModal("userFindByName")}/>
+                </Modal>
             </div>
         </>
     )

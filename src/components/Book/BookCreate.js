@@ -2,8 +2,9 @@ import React,{useState} from 'react'
 import { useDispatch } from 'react-redux';
 import {bookCreateSlice} from '../../slice/bookSlice'
 import { useNavigate } from 'react-router-dom';
+import "./BookListModal.css"
 
-function BookCreate() {
+function BookCreate({onClose}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [bookCreateData,setBookCreateData] = useState({
@@ -21,14 +22,15 @@ function BookCreate() {
         e.preventDefault();
         dispatch(bookCreateSlice(bookCreateData));
         navigate("/bookList/")
+        onClose();
     }
 
     
     return (
         <>
-            <h3>책 정보 새로 등록 하기</h3>
             <form onSubmit={handleSubmit}> 
-            <label>
+            <h3 className="modal-title">책 정보 새로 등록 하기</h3>
+            <label className="modal-label">
             책 제목 : 
             <input
                 type="text"
@@ -37,9 +39,10 @@ function BookCreate() {
                 onChange={handleChange}
                 placeholder="책의 제목을 입력하세요" 
                 required
+                className="modal-input"
             />
             </label>
-            <label>
+            <label className="modal-label">
             작가 : 
             <input
                 type="text"
@@ -48,9 +51,10 @@ function BookCreate() {
                 onChange={handleChange}
                 placeholder="작가를 입력하세요" 
                 required
+                className="modal-input"
             />
             </label>
-            <label>
+            <label className="modal-label">
             출판사 : 
             <input
                 type="text"
@@ -59,9 +63,10 @@ function BookCreate() {
                 onChange={handleChange} // 이름은 입력되면서 바뀔수도 있으므로 onChange가 들어가야함 
                 placeholder="출판사를 입력하세요" 
                 required
+                className="modal-input"
             />
             </label>
-            <label>
+            <label className="modal-label">
             가격 : 
             <input
                 type="number"
@@ -70,9 +75,13 @@ function BookCreate() {
                 onChange={handleChange} // 이름은 입력되면서 바뀔수도 있으므로 onChange가 들어가야함 
                 placeholder="가격을 입력하세요" 
                 required
+                className="modal-input"
             />
             </label>
-                <button type="submit">제출</button>
+            <div className="modal-footer">
+                        <button type="submit" className="modal-btn">제출</button>
+                        <button type="button" onClick={onClose} className="modal-btn">닫기</button>
+                    </div>
             </form>
         </>
     )

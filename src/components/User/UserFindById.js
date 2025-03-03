@@ -2,12 +2,21 @@ import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userFindByIdSlice } from '../../slice/userSlice';
 import {Link} from "react-router-dom";
+import "./UserListModal.css"
+import { ClientSideRowModelModule, 
+    PaginationModule, 
+    ValidationModule  } from "ag-grid-community";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
-const UserFindById = () => {
+const UserFindById = ({onClose}) => {
     const dispatch = useDispatch();
     const [userData,setUserData] = useState(null);
     const [userId,setUserId] = useState("");
     const {userFindById,loading,error} = useSelector((state) => state.userFindById);
+    const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 상태 추가
+    const [rowData, setRowData] = useState([]);
 
     const handleChange =(e)=>{
         setUserId(e.target.value)
@@ -20,8 +29,14 @@ const UserFindById = () => {
     }
 
     useEffect(() =>{
-        if(userFindById){
+        if (userFindById) {
             setUserData(userFindById);
+            setErrorMessage(""); // 데이터가 있으면 에러 메시지 초기화
+            if (userFindById !== rowData) {
+                setRowData(userFindById || []);
+            }
+        } else {
+            setErrorMessage("아이디가 존재하지 않습니다.");
         }
     }, [userFindById])
     // useEffect(() => {
@@ -33,19 +48,23 @@ const UserFindById = () => {
     //     dispatch(userFindByIdSlice(id)); // 데이터를 불러오는 액션 실행 / dispatch가 변경될때 마다 이 useEffect 구문을 실행
     // }, [dispatch]); // api를 불러오는곳
 
+    const columnDefs = [
+        {headerName : "ID", field : "id", flex : 1},
+        {headerName : "Name", field : "name", flex : 1},
+        {headerName : "Email", field : "email", flex : 1},
+        {headerName : "Age", field : "age", flex : 1},
+    ];
     
+
     if(loading){ 
         return <div>loading...</div>
-    }
-    if(error){
-        return <div>error...</div>
     }
 
     return (
         <>  
-            <h3>회원 id로 정보 찾기</h3>
+            <h3 className="modal-title">회원 id로 정보 찾기</h3>
                 <form onSubmit={handleSubmit}> 
-                    <label>
+                    <label className="modal-label">
                         ID : 
                     <input
                         type="number"
@@ -54,35 +73,37 @@ const UserFindById = () => {
                         onChange={handleChange}
                         placeholder="ID를 입력하세요" 
                         required
+                        className="modal-input"
                     />
                     </label>
-                    <button type="submit">찾기</button>
+                    <div className="modal-footer">
+                        <button type="submit" className="modal-btn">제출</button>
+                        <button type="button" onClick={onClose} className="modal-btn">닫기</button>
+                    </div>
                 </form>
-                {userData?
-                    (
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Age</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr key={userData.id}>
-                                    <td>{userData.id}</td>
-                                    <td>{userData.name}</td>
-                                    <td>{userData.email}</td>
-                                    <td>{userData.age}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    )
-                 : (
-                    <div>정보가 표시될 자리</div>
-                 )}
-                <button><Link to='/userList'>뒤로 가기</Link></button>
+                {error && <div style={{ color: "red" }}>회원정보를 찾을수 없습니다.</div>}
+                {userFindById ? (
+                <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+                    <AgGridReact
+                        columnDefs={columnDefs}
+                        rowData={[userData]}
+                        pagination={true}
+                        paginationPageSize={10}
+                        paginationPageSizeSelector={[10, 20, 50, 100]}
+                        domLayout="autoHeight"
+                        rowHeight={40}
+                        headerHeight={50}
+                        modules={[
+                            ClientSideRowModelModule, 
+                            PaginationModule, 
+                            ValidationModule // 🔥 오류 메시지 확인용
+                        ]}
+                        theme="legacy"
+                    />
+                </div>
+            ) : (
+                <div>정보가 표시될 자리</div>
+            )}
         </>
     )
 }
